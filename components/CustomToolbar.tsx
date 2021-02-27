@@ -28,18 +28,19 @@ position: fixed;
 background: #CECECE;
 top: 0;
 display: flex;
-flex-direction: row;
+// flex-direction: row;
+justify-content: space-between;
 `
 
 const CustomToolbar = ({children, editing, setEditing, open, cms, handleDrawerOpen, handleDrawerClose }:Props) => {
   
   return (
     <StyledCustomToolbar>
-        <h1>E1P Documentation</h1>
+        <h1>TinaCMS Custom Toolbar</h1>
         {(typeof cms === 'object' && (cms !== null && cms.hasOwnProperty('_enabled'))) ? <div style={{display: 'flex'}}>
             <EditControls cms={cms} editing={editing} setEditing={setEditing} />
           </div>
-        : <div style={{display: 'flex', flexDirection: 'row'}}>empty
+        : <div style={{display: 'flex'}}>empty
           </div>
         }
         {children}

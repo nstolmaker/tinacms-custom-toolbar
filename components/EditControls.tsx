@@ -7,10 +7,7 @@ import ExitButton from './ExitButton'
 import SaveButton from './SaveButton'
 import PullRequestButton from './PullRequestButton'
 import BranchSelector from './BranchSelector'
-// import { TimelineLite } from 'gsap'
-// import { animations } from 'utils/animations'
-// import { BranchSelector, EditLink, ExitButton, PullRequestButton, ResetButton, SaveButton } from 'components';
-
+import gsap, { TimelineLite } from "gsap";
 
 interface Props {
   cms: TinaCMS | null,
@@ -20,43 +17,53 @@ interface Props {
 }
 
 const AllControlsWrapper = styled.div`
-  border: 2px solid pink;
-  width: 100%;
-  height: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  align-Items: center;
+  justify-Content: flex-end;
 `
 
 const EditControlsWrapper = styled.div`
   display: flex;
-  flex-direction: row;
-  border: 2px solid green;
-  width: auto;
-  height: 2rem;
-  margin: 1rem;
+  align-Items: center;
+  padding: 0.3rem;
+  border-Radius: 0.25rem;
+  // justify-Content: flex-end;
+  overflow: hidden;
 `
 
 const EditControls = ({cms, setEditing, editing, mockEditMode = false}:Props) => {
   /* 
     START animation stuff 
   */
-  // const containerFrontRef:Ref<HTMLDivElement> = createRef()
-  // const containerBackRef:Ref<HTMLDivElement> = createRef()
-  // // TODO: Turn this whole animation thingy I've done into a custom hook that returns these functions instead of including it the way I am now
+  const containerFrontRef:Ref<HTMLDivElement> = createRef()
+  const containerBackRef:Ref<HTMLDivElement> = createRef()
+  
+  function exposeEditControls(frontRef:React.RefObject<HTMLElement>, backRef:React.RefObject<HTMLElement>) {
+    let tempTL = gsap.timeline({paused: true})
+    // @ts-ignore fade out the front
+    tempTL.fromTo(frontRef.current, {width: '100%', display: 'flex'}, {width: '0%', display: 'none', duration: 0.250, ease: "expo.out"}, 0)
+    tempTL.fromTo(backRef.current, {width: '0%', display: 'none'}, { width: '100%', display: 'flex', duration: 0.250, ease: "expo.out"}, "+0.25")
+    return tempTL
+  }
+
   // // This sets up the animation timeline on the first component mount only, so we're ready when we want to animate.
-  // const tl = useRef(null);
-  // let exposeTL = new TimelineLite({paused: true})
-  // useEffect(() => {
-  //   // @ts-ignore
-  //   tl.current = animations['exposeEditControls'](containerFrontRef, containerBackRef)
-  // }, [])
+  const tl = useRef(null);
+  let exposeTL = new TimelineLite({paused: true})
+  useEffect(() => {
+    tl.current = exposeEditControls(containerFrontRef, containerBackRef)
+
+    if (typeof cms === 'object' && (cms !== null && cms.hasOwnProperty('_enabled')) && cms.enabled) {
+      tl.current.restart()
+    }
+  }, [])
+  /*
+    END animation stuff (mostly)
+  */
 
   const handleEnterEditing = (newMode:boolean) => {
     // animate the transition to editing, and put focus on the element after it shows
-    // @ts-ignore
-    // tl?.current?.restart()
     setEditing(newMode)
+    // tl.current.restart()
   }
 
   const handleExitEditing = (newMode:boolean) =>{
@@ -67,17 +74,14 @@ const EditControls = ({cms, setEditing, editing, mockEditMode = false}:Props) =>
 
   return (
     <AllControlsWrapper>
-      <EditControlsWrapper style={{width: '0'}}> 
-      {/* ref={containerBackRef} 
-      }>*/}
+      <EditControlsWrapper style={{width: '0'}} ref={containerBackRef}>
         <BranchSelector mockEditMode={mockEditMode} />
         <PullRequestButton cms={cms} />
         <SaveButton cms={cms} />
         <ResetButton cms={cms} />
         <ExitButton cms={cms} setEditing={handleExitEditing} />
       </EditControlsWrapper>
-      <div 
-      /* ref={containerFrontRef} */
+      <div ref={containerFrontRef}
       style={{display: 'flex', overflow: 'hidden'}}>
         <EditLink cms={cms} editing={editing} setEditing={handleEnterEditing} />
       </div>

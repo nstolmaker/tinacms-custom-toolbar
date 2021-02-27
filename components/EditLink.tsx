@@ -11,18 +11,38 @@ export interface EditLinkProps {
 }
 
 const StyledEditButton = styled.div`
-  height: 2rem;
-  border: 1px solid black;
+  background-Color: #4281C3;
+  color: white;
+  overflow: hidden;
+  max-Height: 2.25rem;
+  &:hover {
+    background-Color: #7FA1D5;
+  }
+  padding: 0.5rem;
+  border: 1px solid #EDEDED;
+  border-Radius: 0.25rem;
+  margin-right: 1rem;
+  cursor: pointer;
+`
+
+const StyledEditButtonLabel = styled.span`
+  overflow: hidden;
+  display: flex;
+  max-Height: 1.5rem;
 `
 
 const EditLink = (props: EditLinkProps) => {
   const { cms, editing, setEditing, mockEditMode = false } = props
-    return (
-      <StyledEditButton 
-        onClick={() => { if (!mockEditMode) { setEditing(!editing); cms?.toggle() }}}
-      >{editing ? 'Exit Edit' : 'Edit Page'}
-      </StyledEditButton>
-    )
+    if (!editing) {
+      return (
+        <StyledEditButton 
+          onClick={() => { if (!mockEditMode) { setEditing(!editing); cms?.enable() }}}
+        ><StyledEditButtonLabel>Edit Page</StyledEditButtonLabel>
+        </StyledEditButton>
+      )
+    } else {
+      return <></>
+    }
   }
   
 

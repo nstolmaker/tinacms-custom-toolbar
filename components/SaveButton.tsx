@@ -7,10 +7,20 @@ interface Props {
   mockEditMode?: boolean
 }
 
-const StyledSaveButton = styled.button`
-  margin-right: 0.5rem;
+
+const StyledSaveButton = styled.div`
+  background-Color: #4281C3;
+  color: white;
   overflow: hidden;
-  background-color: #4281C3,
+  max-Height: 2.25rem;
+  &:hover {
+    background-Color: #7FA1D5;
+  }
+  padding: 0.5rem;
+  border: 1px solid #EDEDED;
+  border-Radius: 0.25rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
 `
 
 const StyledSaveButtonLabel = styled.span`

@@ -3,19 +3,25 @@ import React from 'react'
 import { useCMS, TinaCMS } from 'tinacms'
 import {GithubClient, AsyncButton, MERGE_REQUEST, MERGE_CONFLICT } from 'next-tinacms-github/dist/index'
 import styled from 'styled-components'
-import { Button } from '@tinacms/styles'
 
 // custom
 // import { AsyncButton } from 'components'
 
 
-const StyledPRButton = styled.div`
-  margin-Right: 0.5rem;
-  background-Color: green;
+const StyledPRButton = styled.button`
+  background-Color: #4281C3;
+  color: white;
   overflow: hidden;
-  max-Height: 2.25rem;
+  height: 2.25rem;
+  &:hover {
+    background-Color: #7FA1D5;
+  }
+  padding: 0 0.5rem;
+  border: 1px solid #EDEDED;
+  border-Radius: 0.25rem;
+  margin-right: 0.5rem;
+  cursor: pointer;
 `
-
 const StyledPRButtonLabel = styled.span`
   flex: 1;
   overflow: hidden;
@@ -59,12 +65,10 @@ interface PRButtonType {
 const PullRequestButton = ({cms, mockEditMode = false}:PRButtonType) => {
   if (cms === null) cms = useCMS();
   return (
-    <StyledPRButton>
-    <Button  
+    <StyledPRButton
       onClick={()=>createPR(cms)}
     >
       <StyledPRButtonLabel>Make Pull Request</StyledPRButtonLabel>
-    </Button>
     </StyledPRButton>
   );
 }

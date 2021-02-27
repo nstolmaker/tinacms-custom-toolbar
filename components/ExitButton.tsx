@@ -16,10 +16,19 @@ interface Props {
   mockEditMode?: boolean
 }
 
-
-const StyledExitButton = styled.button`
-  margin-Right: 0.2rem;
+const StyledExitButton = styled.div`
+  background-Color: #4281C3;
+  color: white;
   overflow: hidden;
+  max-Height: 2.25rem;
+  &:hover {
+    background-Color: #7FA1D5;
+  }
+  padding: 0.5rem;
+  border: 1px solid #EDEDED;
+  border-Radius: 0.25rem;
+  margin-right: 0.2rem;
+  cursor: pointer;
 `
 
 const StyledExitButtonLabel = styled.span`

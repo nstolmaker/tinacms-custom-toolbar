@@ -54,11 +54,11 @@ const StyledBranchSelector = styled.div`
 `
 
 const StyledSelect = styled.div`
-  border: 1px solid black;
+  border: 1px solid red;
   border-Color: #EDEDED;
-  box-Shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  // box-Shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
   border-Radius: 0.25rem;
-  background: #EDEDED;
+  // background: #EDEDED;
   padding: 0.25rem 0.25rem 0.25rem 0.75rem;
   display: flex;
   margin-Right: 0.1rem;
@@ -94,7 +94,6 @@ const BranchSelector = ({ onBranchChange, mockEditMode = false}: BranchSwitcherP
       github
       .getBranchList()
       .then((branches:any) => {
-        console.log({branches})
         setBranches(branches)
         setBranchStatus('loaded')
       })
@@ -129,7 +128,7 @@ const BranchSelector = ({ onBranchChange, mockEditMode = false}: BranchSwitcherP
 
   return (
     <StyledBranchSelector>
-      <label id="label">Workspace: </label>
+      <label id="label">Branch: </label>
       <Dropdown>
         <div ref={selectListRef as any}>
           {branchStatus === 'pending' && (

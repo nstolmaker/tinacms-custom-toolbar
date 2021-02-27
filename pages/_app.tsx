@@ -61,7 +61,6 @@ export default class Site extends App {
           {/**
            * 6. Add a button for entering Preview/Edit Mode
            */}
-          <EditLink cms={this.cms} />
           <Component {...pageProps} />
         </TinacmsGithubProvider>
       </TinaProvider>
@@ -88,16 +87,4 @@ const onLogout = () => {
   return fetch(`/api/reset-preview`).then(() => {
     window.location.reload()
   })
-}
-
-export interface EditLinkProps {
-  cms: TinaCMS
-}
-
-export const EditLink = ({ cms }: EditLinkProps) => {
-  return (
-    <button onClick={() => cms.toggle()}>
-      {cms.enabled ? 'Exit Edit Mode' : 'Edit This Site'}
-    </button>
-  )
 }
