@@ -1,3 +1,5 @@
+require('dotenv').config()
+ 
 import App from 'next/app'
 import { TinaCMS, TinaProvider } from 'tinacms'
 import {
