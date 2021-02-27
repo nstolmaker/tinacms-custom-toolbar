@@ -42,7 +42,7 @@ export default class Site extends App {
        * 4. Use the Sidebar and Toolbar
        */
       sidebar: props.pageProps.preview,
-      toolbar: props.pageProps.preview,
+      toolbar: false, // !!! Set this to hide the tinacms toolbar
     })
   }
 

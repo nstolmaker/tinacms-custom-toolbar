@@ -1,11 +1,15 @@
+import React from 'react'
 import Head from 'next/head'
 import styles from '../styles/Home.module.css'
 import { getGithubPreviewProps, parseJson } from 'next-tinacms-github'
 import { GetStaticProps } from 'next'
-import { usePlugin } from 'tinacms'
+import { useCMS, usePlugin } from 'tinacms'
 import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github'
+import CustomToolbar from '../components/CustomToolbar'
 
  export default function Home({ file }) {
+  const [editing, setEditing] = React.useState(false)
+
   const formOptions = {
     label: 'Home Page',
     fields: [{ name: 'title', component: 'text' }],
@@ -14,7 +18,11 @@ import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github
   // Registers a JSON Tina Form
   const [data, form] = useGithubJsonForm(file, formOptions)
   usePlugin(form)
-  useGithubToolbarPlugins()
+  // useGithubToolbarPlugins() !!! DISABLE THE DEFAULT TOOLBAR
+
+  const [open, setOpen] = React.useState(true)
+  const cms = useCMS();
+  
 
     return (
     <div className={styles.container}>
@@ -24,6 +32,7 @@ import { useGithubJsonForm, useGithubToolbarPlugins } from 'react-tinacms-github
       </Head>
 
       <main className={styles.main}>
+        <CustomToolbar cms={cms} open={open} handleDrawerOpen={()=>setOpen(true)} handleDrawerClose={()=>setOpen(false)} editing={editing} setEditing={setEditing} />
         <h1 className={styles.title}>
           {data.title}
         </h1>
