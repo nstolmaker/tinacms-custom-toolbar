@@ -13,7 +13,7 @@ Into this:
 
 ## Getting Started
 
-This guide is designed to be as newbie-friendly as possible. If you're a ninja and want to skip to the good part, hop down to [Make your new Save Reset and Exit Buttons](#Make-your–new-Save-Reset-and-Exit-Buttons).
+This guide is designed to be as newbie-friendly as possible. If you're a ninja and want to skip to the good part, hop down to [Make your new Save Reset and Exit Buttons](#step-8-make-your-new-save-reset-and-exit-buttons).
 
 ### Assumptions:
 - *You have an install already*: To start out, you need to have a working default install of TinaCMS. For my use-case, we're hooking to a git back-end, so I'm starting with the guide [Using GitHub with Next.js](https://tina.io/guides/nextjs/github/initial-setup/).
