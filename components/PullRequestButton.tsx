@@ -2,12 +2,9 @@
 import React, { useState } from 'react'
 import { TinaCMS, Modal, ModalPopup, ModalHeader, ModalBody } from 'tinacms'
 import { PullRequestIcon } from '@tinacms/icons'
-import {GithubClient, AsyncButton, MERGE_REQUEST, MERGE_CONFLICT } from 'next-tinacms-github/dist/index'
+import { GithubClient, AsyncButton } from 'next-tinacms-github/dist/index'
 import { PRModal } from './PRModal'
 import styled from 'styled-components'
-
-// custom
-// import { AsyncButton } from 'components'
 
 
 const StyledPRButton = styled.button`
@@ -69,18 +66,6 @@ interface PRButtonType {
   cms: TinaCMS | null,
   mockEditMode?: boolean
 }
-
-
-// const PullRequestButton = ({cms, mockEditMode = false}:PRButtonType) => {
-//   if (cms === null) cms = useCMS();
-//   return (
-//     <StyledPRButton
-//       onClick={()=>createPR(cms)}
-//     >
-//       <StyledPRButtonLabel>Make Pull Request</StyledPRButtonLabel>
-//     </StyledPRButton>
-//   );
-// }
 
 function PullRequestButton() {
   const [opened, setOpened] = useState(false)
