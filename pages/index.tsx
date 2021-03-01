@@ -20,7 +20,6 @@ import CustomToolbar from '../components/CustomToolbar'
   usePlugin(form)
   // useGithubToolbarPlugins() !!! DISABLE THE DEFAULT TOOLBAR
 
-  const [open, setOpen] = React.useState(true)
   const cms = useCMS();
   
 
@@ -32,7 +31,7 @@ import CustomToolbar from '../components/CustomToolbar'
       </Head>
 
       <main className={styles.main}>
-        <CustomToolbar cms={cms} open={open} handleDrawerOpen={()=>setOpen(true)} handleDrawerClose={()=>setOpen(false)} editing={editing} setEditing={setEditing} />
+        <CustomToolbar cms={cms} editing={editing} setEditing={setEditing} />
         <h1 className={styles.title}>
           {data.title}
         </h1>
