@@ -1,7 +1,9 @@
 // React and Tina 🦙
-import React from 'react'
-import { useCMS, TinaCMS } from 'tinacms'
+import React, { useState } from 'react'
+import { TinaCMS, Modal, ModalPopup, ModalHeader, ModalBody } from 'tinacms'
+import { PullRequestIcon } from '@tinacms/icons'
 import {GithubClient, AsyncButton, MERGE_REQUEST, MERGE_CONFLICT } from 'next-tinacms-github/dist/index'
+import { PRModal } from './PRModal'
 import styled from 'styled-components'
 
 // custom
@@ -21,6 +23,13 @@ const StyledPRButton = styled.button`
   border-Radius: 0.25rem;
   margin-right: 0.5rem;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  & svg {
+    fill: white;
+    height: 2rem;
+    width: 2rem;
+  }
 `
 const StyledPRButtonLabel = styled.span`
   flex: 1;
@@ -47,7 +56,7 @@ export const createPR = async (cms: TinaCMS | null) => {
     const existingPr = await github.fetchExistingPR()
     console.log('Pull request already exists', existingPr)
 
-    if (!existingPr) {
+    if (!existingPr && existingPr !== undefined) {
       return await github.createPR(prTitle, prBody)
     }
   } catch (error) {
@@ -62,15 +71,38 @@ interface PRButtonType {
 }
 
 
-const PullRequestButton = ({cms, mockEditMode = false}:PRButtonType) => {
-  if (cms === null) cms = useCMS();
+// const PullRequestButton = ({cms, mockEditMode = false}:PRButtonType) => {
+//   if (cms === null) cms = useCMS();
+//   return (
+//     <StyledPRButton
+//       onClick={()=>createPR(cms)}
+//     >
+//       <StyledPRButtonLabel>Make Pull Request</StyledPRButtonLabel>
+//     </StyledPRButton>
+//   );
+// }
+
+function PullRequestButton() {
+  const [opened, setOpened] = useState(false)
+  const close = () => setOpened(false)
   return (
-    <StyledPRButton
-      onClick={()=>createPR(cms)}
-    >
-      <StyledPRButtonLabel>Make Pull Request</StyledPRButtonLabel>
-    </StyledPRButton>
-  );
+    <>
+      <StyledPRButton onClick={() => setOpened(p => !p)}>
+        <PullRequestIcon />
+        <StyledPRButtonLabel> Pull Request</StyledPRButtonLabel>
+      </StyledPRButton>
+      {opened && (
+        <Modal>
+          <ModalPopup>
+            <ModalHeader close={close}>Pull Request</ModalHeader>
+            <ModalBody>
+              <PRModal />
+            </ModalBody>
+          </ModalPopup>
+        </Modal>
+      )}
+    </>
+  )
 }
 
 export default PullRequestButton
