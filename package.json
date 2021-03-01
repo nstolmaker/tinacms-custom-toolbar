@@ -10,6 +10,7 @@
   "dependencies": {
     "bootstrap": "^4.6.0",
     "dotenv": "^8.2.0",
+    "gsap": "^3.6.0",
     "hygen": "^6.0.4",
     "hygen-add": "^1.0.5",
     "next": "10.0.7",
